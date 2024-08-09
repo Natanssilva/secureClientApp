@@ -20,6 +20,11 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::get('/', function(){
+    return "gansobass";
+}); //Rota para cadastro de novos usuários
+
 Route::post('/users', [UserController::class, 'signIn']); //Rota para cadastro de novos usuários
 Route::post('/users{id}', [UserController::class, 'login']); //Rota para login usuários
+
 

@@ -11,7 +11,8 @@ use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
-    public function signIn(Request $request){ //método de cadastro de usuarios
+    public function signIn(Request $request)
+    { //método de cadastro de usuarios
 
         try {
 
@@ -23,23 +24,31 @@ class UserController extends Controller
             ]);
 
             $rules_validate['senha'] = Hash::make($rules_validate['senha']);
-    
+
             $new_user = User::create($rules_validate);
 
-            return response()->json(["status" => "success", "data" => $new_user],201);
-
+            return response()->json(["status" => "success", "data" => $new_user], 201);
         } catch (ValidationException $e) {
 
             return response()->json([
                 'message' => 'Erro de validação.',
                 'errors' => $e->getMessage(), // Retorna os erros de validação
-            ], 422); 
-
+            ], 422);
         }
-        
     }
 
-    public function login(Request $request){ 
-        
+    public function login(Request $request)
+    {
+        $verify_fields = $request->only("email", "senha"); //retorna os valores das chaves passadas como params
+        $user = User::where('email', $verify_fields['email'])->first(); //retornando o primeiro registro encontrando c o email
+
+        //se for um user valido e a senha for a igual cadastrada na base de dados
+        if(!empty($user) && Hash::check($verify_fields['senha'], $user->senha)){
+            return response()->json(["status" => "success", "user" => "Bem vindo $user->nome."], 201);
+
+        }
+
+        return response()->json(["status" => "error", "msg" => "Usuário não cadastrado no sistema."], 204);
+ 
     }
 }

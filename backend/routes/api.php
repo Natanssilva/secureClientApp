@@ -25,6 +25,6 @@ Route::get('/', function(){
 }); //Rota para cadastro de novos usuários
 
 Route::post('/users', [UserController::class, 'signIn']); //Rota para cadastro de novos usuários
-Route::post('/users{id}', [UserController::class, 'login']); //Rota para login usuários
+Route::post('/login', [UserController::class, 'login']); //Rota para verificar se existe login usuários
 
 

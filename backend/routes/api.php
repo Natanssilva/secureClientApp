@@ -27,6 +27,7 @@ Route::get('/', function(){
 
 Route::post('/users', [UserController::class, 'signIn']); //Rota para cadastro de novos usuários
 Route::post('/login', [UserController::class, 'login']); //Rota para verificar se existe login usuários
-Route::post('/reset-password', [RecoverPassword::class, 'resetPassword']); //Rota em caso usuario esqueça a senha
+Route::post('/password/forgot', [RecoverPassword::class, 'sendResetLink']); 
+Route::post('/password/reset', [RecoverPassword::class, 'resetPassword']);
 
 

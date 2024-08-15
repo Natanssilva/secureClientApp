@@ -12,7 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('forget_passwords', function (Blueprint $table) {
-            $table->id();
+            $table->string('email')->primary();
+            $table->string('token')->nullable(true);
             $table->timestamps();
         });
     }

@@ -15,7 +15,6 @@ class UserController extends Controller
     { //método de cadastro de usuarios
 
         try {
-
             $rules_validate = $request->validate([
                 "nome" => "bail|required|string|max:100",
                 "sobrenome" => "nullable|string|max:100",
@@ -51,7 +50,5 @@ class UserController extends Controller
  
     }
 
-    public function forgetPassword(Request $request){
 
-    }
 }

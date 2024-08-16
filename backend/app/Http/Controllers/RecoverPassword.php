@@ -21,25 +21,26 @@ class RecoverPassword extends Controller
         if (!empty($user)) {  //usuario encontrado no database
             $token_password = Hash::make(bin2hex(random_bytes(32)));
 
-            showArray([
-                "token_password" => $token_password,
-            ]);
-
-            ForgetPassword::table('forget_passwords')->insert([
+            ForgetPassword::create([
                 'email' => $request->email,
                 'token' => $token_password,
             ]);
 
-            // Envia o email com o token
 
-            // params> view(corpo email), dados passados para view(token), callback de config email
-            Mail::send('emails.reset-password', ['token' => $token_password], function ($message) use ($request) {
+            $link = url('/reset-password') . '?token=' . $token_password;
+
+            // Envia o email com o token
+            $email = Mail::raw("Prezados, segue link para redefinição de senha: " . $link, function ($message) use ($request) {
                 $message->to($request->email);
                 $message->subject('Link para redefinição de senha');
             });
+
+            return response()->json(["status" =>"success", "message" => "E-mail enviado ao usuário."],200);
         }
 
         return response()->json(["status" => "error", "message" => "Usuário não encontrado na base de dados."], 404);
     }
-    public function resetPassword(Request $request) {}
+    public function resetPassword(Request $request) {
+        
+    }
 }

@@ -10,7 +10,6 @@ use Illuminate\Support\Facades\Mail;
 
 class RecoverPassword extends Controller
 {
-
     public function sendResetLink(Request $request)
     {
 
@@ -21,15 +20,15 @@ class RecoverPassword extends Controller
         if (!empty($user)) {  //usuario encontrado no database
             $token_password = Hash::make(bin2hex(random_bytes(32)));
 
-            ForgetPassword::create([
-                'email' => $request->email,
-                'token' => $token_password,
-            ]);
+            ForgetPassword::updateOrCreate(
+                ['email' => $request->email],
+                ['token' => $token_password]
+            );
 
 
             $link = url('/reset-password') . '?token=' . $token_password;
 
-            // Envia o email com o token
+            // Envia o email com o token / CONFIGURAR O SERVIDOR DE ENVIO DE EMAIL
             $email = Mail::raw("Prezados, segue link para redefinição de senha: " . $link, function ($message) use ($request) {
                 $message->to($request->email);
                 $message->subject('Link para redefinição de senha');

@@ -45,7 +45,7 @@ class UserController extends Controller
         if(!empty($user) && Hash::check($verify_fields['senha'], $user->senha)){
             return response()->json(["status" => "success", "user" => "Bem vindo $user->nome."], 200);
         }
-       
+
         return response()->json(["status" => "error", "msg" => "Usuário não cadastrado no sistema."], 401);
  
     }

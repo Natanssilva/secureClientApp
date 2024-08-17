@@ -1,56 +1,56 @@
 <template>
-  <ion-page>
-    <ion-header :translucent="true">
-      <ion-toolbar>
-        <ion-title>Blank</ion-title>
-      </ion-toolbar>
-    </ion-header>
-
-    <ion-content :fullscreen="true">
-      <ion-header collapse="condense">
-        <ion-toolbar>
-          <ion-title size="large">Blank</ion-title>
-        </ion-toolbar>
-      </ion-header>
-
-      <div id="container">
-        <strong>Ready to create an app?</strong>
-        <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+  <ion-content :fullscreen="true">
+    <div>
+      <section class="bubble">
+        <div class="content">
+          <h1 class="text-black font-bold text-4xl mb-16">
+            Bem-vindo ao SecureClient
+          </h1>
+          <!-- <ButtonDefault></ButtonDefault> -->
+        </div>
+      </section>
+      <div>
+        
       </div>
-    </ion-content>
-  </ion-page>
+    </div>
+  </ion-content>
 </template>
 
 <script setup lang="ts">
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/vue';
+import {
+  IonContent,
+  IonHeader,
+  IonPage,
+  IonTitle,
+  IonToolbar,
+} from "@ionic/vue";
+import ButtonDefault from "../components/ButtonDefault.vue";
 </script>
 
 <style scoped>
-#container {
-  text-align: center;
-  
+.bubble {
+  position: relative;
+  height: 100vh; /* Adiciona isso para garantir que a .bubble ocupe toda a altura da tela */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.bubble::after {
+  content: "";
+  border-bottom-left-radius: 50% 100%;
+  border-bottom-right-radius: 50% 100%;
   position: absolute;
-  left: 0;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
+  top: 0;
+  width: 100%;
+  background-color: white;
+  height: 55vh;
+  z-index: -1;
 }
 
-#container strong {
-  font-size: 20px;
-  line-height: 26px;
-}
-
-#container p {
-  font-size: 16px;
-  line-height: 22px;
-  
-  color: #8c8c8c;
-  
-  margin: 0;
-}
-
-#container a {
-  text-decoration: none;
+.content {
+  position: relative;
+  z-index: 1;
+  text-align: center; /* Opcional: centraliza o texto dentro da div */
 }
 </style>

@@ -23,7 +23,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::get('/', function(){
     return "gansobass";
-}); //rota principal, onde provavel que eu vá lançar os pedidos
+}); //rota principal, tela de inicio do aplicativo
 
 Route::post('/users', [UserController::class, 'signIn']); //Rota para cadastro de novos usuários
 Route::post('/login', [UserController::class, 'login']); //Rota para verificar se existe login usuários

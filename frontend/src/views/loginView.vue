@@ -35,7 +35,7 @@
             name="pizza"
             value="Cheese"
           />
-          <label for="ingredient1" class="ml-2"> Cheese </label>
+          <label for="ingredient1" class="ml-2"> Lembrar de mim? </label>
         </div>
       </div>
     </div>

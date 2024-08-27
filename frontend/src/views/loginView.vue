@@ -6,36 +6,40 @@
       <h1 class="text-center text-lg font-semibold mb-4">
         Seja bem-vindo de volta!
       </h1>
+      <div class="flex justify-center flex-col">
+        <div class="card p-6">
+          <FloatLabel>
+            <InputText id="email" v-model="email" size="large"  class="w-full"/>
+            <!-- <small id="username-help">Digite seu email parar entrar na conta.</small> -->
+            <label for="email">Email@exemplo.com</label>
+          </FloatLabel>
+        </div>
 
-      <div class="card p-6">
-        <FloatLabel>
-          <InputText id="email" v-model="email" class="w-full" />
-          <label for="email">Email@exemplo.com</label>
-        </FloatLabel>
-      </div>
-
-      <div class="card p-6">
-        <FloatLabel>
-          <Password
-            v-model="senha"
-            promptLabel="Digite uma senha"
-            weakLabel="Muito Fraca"
-            mediumLabel="Mediana. Adicione caracteres especiais (@#39428)"
-            strongLabel="Senha forte."
-            toggleMask
-          />
-          <label for="senha">Senha</label>
-        </FloatLabel>
-      </div>
-      <div class="card flex flex-wrap  gap-4">
-        <div class="flex items-center">
-          <Checkbox
-            v-model="pizza"
-            inputId="ingredient1"
-            name="pizza"
-            value="Cheese"
-          />
-          <label for="ingredient1" class="ml-2"> Lembrar de mim? </label>
+        <div class="card p-6">
+          <FloatLabel >
+            
+            <Password class="w-full"
+              v-model="senha"
+              promptLabel="Digite uma senha"
+              weakLabel="Muito Fraca"
+              mediumLabel="Mediana. Adicione caracteres especiais (@#39428)"
+              strongLabel="Senha forte."
+              toggleMask
+              
+            />
+            <label for="senha" >Senha</label>
+          </FloatLabel>
+        </div>
+        <div class="card flex flex-wrap gap-4">
+          <div class="flex items-center">
+            <Checkbox
+              v-model="pizza"
+              inputId="ingredient1"
+              name="pizza"
+              value="Cheese"
+            />
+            <label for="ingredient1" class="ml-2"> Lembrar de mim? </label>
+          </div>
         </div>
       </div>
     </div>
@@ -55,7 +59,8 @@ const senha = ref("");
 </script>
 
 <style scoped>
-#input-senha {
-  width: 100%;
-}
+.p-inputtext {
+  width: 100% !important;
+} 
+
 </style>

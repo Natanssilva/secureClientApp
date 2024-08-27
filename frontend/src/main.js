@@ -9,7 +9,24 @@ import App from './App.vue'
 const app = createApp(App);
 app.use(PrimeVue, {
     theme: {
-        preset: Aura
+        preset: Aura,
+        options: {
+            prefix: 'p',
+            darkModeSelector: "false",
+            cssLayer: false
+        }
+    },
+
+    // Adicionando estilo global para a classe de input do prime VUE
+    pt: {    
+        global:{
+            css: `
+            .p-inputtext{   
+                width:100%;
+            }
+            `
+        }
+        
     }
 });
 

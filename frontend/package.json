@@ -12,7 +12,9 @@
     "@primevue/themes": "^4.0.4",
     "primeicons": "^7.0.0",
     "primevue": "^4.0.4",
-    "vue": "^3.4.37"
+    "tailwindcss-primeui": "^0.3.4",
+    "vue": "^3.4.37",
+    "yup": "^1.4.0"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.1.2",

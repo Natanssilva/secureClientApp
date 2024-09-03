@@ -2,11 +2,11 @@
   <div class="container">
     <div class="login-section">
       <!-- Conteúdo da parte de login -->
-       <div class="top-0 fixed">
+       <div class="top-0 left-0 fixed">
         <img class="h-64" src="../assets/img/logo.png" alt="" srcset="">
        </div>
       <h1>Sign in</h1>
-      <p class="">Don't have account? <span class="underline text-secure-color">Create Now</span></p>
+      <p class="mb-10">Don't have account? <span class="underline text-secure-color">Create Now</span></p>
 
       <form>
         <!-- Campos de login -->
@@ -42,6 +42,7 @@ export default {
 </script>
 
 <style scoped>
+
 body,
 html {
   margin: 0;
@@ -54,6 +55,9 @@ html {
   display: grid;
   grid-template-columns: 1fr 1fr;
   height: 100vh;
+  width: 100vw; /* Garante que o container ocupe toda a largura */
+  margin: 0; /* Remove margens externas */
+  padding: 0; /* Remove padding interno */
 }
 
 .login-section {
@@ -72,6 +76,7 @@ html {
   background-color: #7447E1; /* Cor de fundo da seção de imagem */
   color: white;
   padding: 0 50px;
+  
 }
 
 h1 {

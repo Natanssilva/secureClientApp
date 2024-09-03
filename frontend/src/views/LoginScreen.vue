@@ -2,13 +2,24 @@
   <div class="container">
     <div class="login-section">
       <!-- Conteúdo da parte de login -->
+       <div class="top-0 fixed">
+        <img class="h-64" src="../assets/img/logo.png" alt="" srcset="">
+       </div>
       <h1>Sign in</h1>
-      <p class="">Don't have account? <span class="underline">Create Now</span></p>
+      <p class="">Don't have account? <span class="underline text-secure-color">Create Now</span></p>
 
       <form>
         <!-- Campos de login -->
         <input type="email" placeholder="E-mail" />
         <input type="password" placeholder="Password" />
+        <div class="flex justify-between">
+          <div>
+            <el-checkbox v-model="checked1" label="Remember me" size="large" />
+          </div>
+          <div>
+            <span class="underline text-secure-color">Forgot Password?</span>
+          </div>
+        </div>
         <el-button class="bttn" round :loading-icon="Eleme" loading>Loading</el-button>
       </form>
     </div>
@@ -58,7 +69,7 @@ html {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: #1c3a31; /* Cor de fundo da seção de imagem */
+  background-color: #7447E1; /* Cor de fundo da seção de imagem */
   color: white;
   padding: 0 50px;
 }
@@ -83,7 +94,7 @@ input {
 
 .bttn {
   padding: 25px;
-  background-color: #006f4a;
+  background-color: #7447E1;
   color: white;
   font-size: 16px;
 
@@ -91,7 +102,7 @@ input {
 }
 
 button:hover {
-  background-color: #00533b;
+  background-color: #7447E1;
 }
 
 .el-button .custom-loading .circular {

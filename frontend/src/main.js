@@ -1,6 +1,7 @@
-import './assets/main.css'
 import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
+import './assets/main.css'
+import '@fortawesome/fontawesome-free/css/all.css'
 import router from './router/router' 
 import { createApp } from 'vue'
 import App from './App.vue'

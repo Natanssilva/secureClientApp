@@ -11,11 +11,11 @@
         <img class="h-40 md:h-52 lg:h-60 w-auto" src="../assets/img/logo.png" alt="Logo" />
       </div>
 
-      <h1 class="text-4xl font-bold mb-2">Sign in</h1>
+      <h1 class="text-4xl font-bold mb-2">Login</h1>
       <p class="mb-6 text-sm">
-        Don't have an account?
+        Não possui conta?
         <span class="no-underline hover:underline text-secure-color cursor-pointer"
-          >Create Now</span
+          >Crie agora</span
         >
       </p>
 
@@ -24,7 +24,7 @@
         <el-input
           class="w-full h-20 p-4 mb-3 rounded-md"
           v-model="inputEmail"
-          placeholder="example@email.com"
+          placeholder="exemplo@email.com"
           clearable
         />
 
@@ -32,22 +32,22 @@
           class="w-full h-20 p-4 mb-3 rounded-md"
           v-model="inputPassword"
           type="password"
-          placeholder="Please input password"
+          placeholder="Digite uma senha"
           show-password
         />
 
         <div class="flex justify-around items-center mb-4">
           <el-checkbox v-model="checked1" label="Remember me" size="large" />
           <span class="no-underline hover:underline text-secure-color cursor-pointer"
-            >Forgot Password?</span
+            >Esqueceu a senha?</span
           >
         </div>
 
-        <el-button class="w-full py-3" round color="#7447E1" size="large"> Sign in </el-button>
+        <el-button class="w-full py-3" round color="#7447E1" size="large"> Entrar </el-button>
       </form>
 
       <div class="mt-4 w-full max-w-md">
-        <el-divider content-position="center">OR</el-divider>
+        <el-divider content-position="center">OU</el-divider>
 
         <!-- Botão Google -->
         <div>
@@ -57,7 +57,7 @@
             size="large"
           >
             <i class="fab fa-google mr-2"></i>
-            Continue with Google
+            Continuar com Google
           </el-button>
         </div>
 
@@ -69,7 +69,7 @@
             size="large"
           >
             <i class="fab fa-facebook mr-2"></i>
-            Continue with Facebook
+            Continuar com Facebook
           </el-button>
         </div>
       </div>

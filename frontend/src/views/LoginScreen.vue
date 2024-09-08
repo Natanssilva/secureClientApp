@@ -75,14 +75,26 @@
       </div>
     </div>
 
-    <div
-      class="hidden lg:flex flex-col justify-center items-center bg-secure-color text-white px-8 lg:px-20"
-    >
-      <h2 class="text-2xl font-bold mb-4">Reach financial goals faster</h2>
-      <p class="mb-6 text-center">
-        Use your Venus card around the world with no hidden fees. Hold, transfer and spend money.
-      </p>
-      <button class="py-3 px-6 bg-white text-green-800 rounded-md">Learn more</button>
+    <div class="hidden lg:flex flex-col justify-center items-center bg-secure-color text-white px-8 lg:px-20">
+      <!-- Div para centralizar o conteúdo no grid -->
+      <div class="flex-grow flex flex-col justify-center items-center w-full h-full">
+        
+        <!-- Centralizando o carousel -->
+        <el-carousel 
+          class="w-full max-w-4xl rounded-lg"
+          height="600px"
+          :autoplay="false"
+          :interval="3000"
+          indicator-position="outside"
+          motion-blur
+        >
+          <el-carousel-item v-for="(image, index) in images" :key="index">
+            <div class="flex justify-center items-center w-full h-full">
+              <img :src="image" alt="carousel image" class="object-cover w-full h-full rounded-lg" />
+            </div>
+          </el-carousel-item>
+        </el-carousel>
+      </div>
     </div>
   </div>
 </template>
@@ -90,6 +102,10 @@
 <script>
 import { ref } from 'vue'
 import { ElDivider } from 'element-plus'
+import bussinesImg from '../assets/img/bussines.svg'
+import evolucaoImg from '../assets/img/evolucao.svg'
+import suporteImg from '../assets/img/suporte.svg'
+
 export default {
   name: 'LoginScreen',
   setup() {
@@ -98,10 +114,17 @@ export default {
     const inputEmail = ref('')
     const checked1 = ref(false) // Para o checkbox "Remember me"
 
+    const images = ref([
+      bussinesImg,
+      evolucaoImg,
+      suporteImg
+    ])
+
     return {
       inputPassword,
       inputEmail,
-      checked1
+      checked1,
+      images
     }
   }
 }
@@ -117,8 +140,20 @@ html {
 }
 
 i.fab {
-  font-size: 1.25rem; /* ou ajuste conforme necessário */
+  font-size: 1.25rem; 
 }
 
+.el-carousel__item h3 {
+  color: #ffffff;
+  line-height: 100%;
+  text-align: center;
+}
 
+.el-carousel__item:nth-child(2n) {
+  background-color: #99a9bf;
+}
+
+.el-carousel__item:nth-child(2n + 1) {
+  background-color: #d3dce6;
+}
 </style>

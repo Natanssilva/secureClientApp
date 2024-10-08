@@ -19,32 +19,38 @@
         >
       </p>
 
-      <form class="w-full max-w-md">
+      <el-form :model="form" :rules="rules" ref="loginForm"  label-position="top" class="w-full max-w-md">
         <!-- Campos de login -->
-        <el-input
-          class="w-full h-20 p-4 mb-3 rounded-md"
-          v-model="inputEmail"
-          placeholder="exemplo@email.com"
-          clearable
-        />
+        <el-form-item prop="email">
+          <el-input
+            class="w-full h-20 p-4 rounded-md"
+            v-model="form.email"
+            placeholder="exemplo@email.com"
+            clearable
+          />
+        </el-form-item>
 
-        <el-input
-          class="w-full h-20 p-4 mb-3 rounded-md"
-          v-model="inputPassword"
-          type="password"
-          placeholder="Digite uma senha"
-          show-password
-        />
+        <el-form-item prop="password">
+          <el-input
+            class="w-full h-20 p-4  rounded-md"
+            v-model="form.password"
+            type="password"
+            placeholder="Digite uma senha"
+            show-password
+          />
+        </el-form-item>
 
         <div class="flex justify-around items-center mb-4">
           <el-checkbox v-model="checked1" label="Remember me" size="large" />
-          <span class="no-underline hover:underline text-secure-color cursor-pointer"
-            >Esqueceu a senha?</span
-          >
+          <span class="no-underline hover:underline text-secure-color cursor-pointer">Esqueceu a senha?</span>
         </div>
 
-        <el-button class="w-full py-3" round color="#7447E1" size="large"> Entrar </el-button>
-      </form>
+        <el-form-item>
+          <el-button type="primary" class="w-full py-3" round size="large" @click="submitForm">
+            Entrar
+          </el-button>
+        </el-form-item>
+      </el-form>
 
       <div class="mt-4 w-full max-w-md">
         <el-divider content-position="center">OU</el-divider>
@@ -78,7 +84,6 @@
     <div class="hidden lg:flex flex-col justify-center items-center bg-secure-color text-white px-8 lg:px-20">
       <!-- Div para centralizar o conteúdo no grid -->
       <div class="flex-grow flex flex-col justify-center items-center w-full h-full">
-        
         <!-- Centralizando o carousel -->
         <el-carousel 
           class="w-full max-w-4xl rounded-lg"
@@ -101,7 +106,7 @@
 
 <script>
 import { ref } from 'vue'
-import { ElDivider } from 'element-plus'
+import { ElDivider, ElForm, ElFormItem } from 'element-plus'
 import bussinesImg from '../assets/img/bussines.svg'
 import evolucaoImg from '../assets/img/evolucao.svg'
 import suporteImg from '../assets/img/suporte.svg'
@@ -110,21 +115,37 @@ export default {
   name: 'LoginScreen',
   setup() {
     // Definindo os estados reativos necessários
-    const inputPassword = ref('')
-    const inputEmail = ref('')
+    const form = ref({
+      email: '',
+      password: ''
+    })
+
+    const rules = ref({
+      email: [
+        { required: true, message: 'O email é obrigatório', trigger: 'blur' },
+        { type: 'email', message: 'Por favor, insira um e-mail válido', trigger: ['blur', 'change'] }
+      ],
+      password: [
+        { required: true, message: 'A senha é obrigatória', trigger: 'blur' },
+        { min: 6, message: 'A senha deve ter no mínimo 6 caracteres', trigger: 'blur' }
+      ]
+    })
+
     const checked1 = ref(false) // Para o checkbox "Remember me"
 
-    const images = ref([
-      bussinesImg,
-      evolucaoImg,
-      suporteImg
-    ])
+    const images = ref([bussinesImg, evolucaoImg, suporteImg])
+
+    // validando form
+    const submitForm = () => {
+      
+    }
 
     return {
-      inputPassword,
-      inputEmail,
+      form,
+      rules,
       checked1,
-      images
+      images,
+      submitForm
     }
   }
 }

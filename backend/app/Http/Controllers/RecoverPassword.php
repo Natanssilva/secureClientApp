@@ -34,7 +34,7 @@ class RecoverPassword extends Controller
                 $message->subject('Link para redefinição de senha');
             });
 
-            return response()->json(["status" =>"success", "message" => "E-mail enviado ao usuário."],200);
+            return response()->json(["status" =>"success", "message" => "E-mail enviado para $request->email."],200);
         }
 
         return response()->json(["status" => "error", "message" => "Usuário não encontrado na base de dados."], 404);

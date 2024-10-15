@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('forget_passwords', function (Blueprint $table) {
             $table->string('email')->primary();
             $table->string('token')->nullable(true);
+            $table->timestamp('expires_at')->nullable();
             $table->timestamps();
         });
     }

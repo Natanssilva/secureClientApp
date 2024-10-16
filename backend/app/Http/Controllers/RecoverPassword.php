@@ -2,11 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\PasswordResetEmail;
 use App\Models\ForgetPassword;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
+use App\Mail\Contact;
+use Exception;
+use Illuminate\Support\Str;
 
 class RecoverPassword extends Controller
 {
@@ -16,23 +20,38 @@ class RecoverPassword extends Controller
         $request->validate(["email" => "required|email"]);
 
         $user = User::where("email", $request->email)->first(); //procurar usuario com email que ta tentando redefinir senhas
-
-        if (!empty($user)) {  //usuario encontrado no database
-            $token_password = Hash::make(bin2hex(random_bytes(32)));
-
+        
+        
+        if (!empty($user)) {  //usuario encontrado no databasae
+            $token_password = Str::random(60); // Gera um token de 60 caracteres
+            $expiresAt = now()->addMinutes(60);
+            
             ForgetPassword::updateOrCreate(
                 ['email' => $request->email],
-                ['token' => $token_password]
+                ['token' =>  Hash::make($token_password),
+                'expires_at' => $expiresAt ]
             );
 
+            $nom_usuario = trim("{$user->nome} {$user->sobrenome}");
+            $link = url('/reset-password/' . $token_password);
+            $horario = date('H');
+           
+            $saudacao = match (true) {
+                $horario >= 5 && $horario < 12 => "Bom dia", // De 5h até 12h
+                $horario >= 12 && $horario < 18 => "Boa tarde", // De 12h até 18h
+                ($horario >= 18 && $horario <= 23) || ($horario >= 0 && $horario < 5) => "Boa noite", // De 18h até 5h
+                default => "Olá", // Para lidar com qualquer horário inválido (opcional)
+            };
+          
+            try {
+                Mail::to($request->email)->send(new PasswordResetEmail($request->email,$nom_usuario,$link,$saudacao, date('d/m/Y')));
+            } catch (Exception $e) {
+                return redirect()->back()->with([
+                    'success' => false,
+                    'message' => 'Email não enviado!. Erro: ' . $e->getMessage()
+                ]);
+            }
 
-            $link = url('/reset-password') . '?token=' . $token_password;
-
-            // Envia o email com o token / CONFIGURAR O SERVIDOR DE ENVIO DE EMAIL
-            $email = Mail::raw("Prezados, segue link para redefinição de senha: " . $link, function ($message) use ($request) {
-                $message->to($request->email);
-                $message->subject('Link para redefinição de senha');
-            });
 
             return response()->json(["status" =>"success", "message" => "E-mail enviado para $request->email."],200);
         }

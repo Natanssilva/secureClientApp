@@ -11,7 +11,8 @@ class ForgetPassword extends Model
 
     protected $fillable = [
         'email',
-        'token'
+        'token',
+        'expires_at'
     ];
 
     protected $primaryKey = 'email';  // Define o campo `email` como chave primária

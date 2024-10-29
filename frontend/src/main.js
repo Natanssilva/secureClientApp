@@ -5,6 +5,7 @@ import '@fortawesome/fontawesome-free/css/all.css'
 import router from './router/router' 
 import { createApp } from 'vue'
 import App from './App.vue'
+import './plugins/axios.js'
 
 const app = createApp(App)
 

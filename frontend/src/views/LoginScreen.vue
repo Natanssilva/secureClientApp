@@ -19,7 +19,13 @@
         >
       </p>
 
-      <el-form :model="form" :rules="rules" ref="loginForm"  label-position="top" class="w-full max-w-md">
+      <el-form
+        :model="form"
+        :rules="rules"
+        ref="loginForm"
+        label-position="top"
+        class="w-full max-w-md"
+      >
         <!-- Campos de login -->
         <el-form-item prop="email">
           <el-input
@@ -32,7 +38,7 @@
 
         <el-form-item prop="password">
           <el-input
-            class="w-full h-20 p-4  rounded-md"
+            class="w-full h-20 p-4 rounded-md"
             v-model="form.password"
             type="password"
             placeholder="Digite uma senha"
@@ -42,11 +48,19 @@
 
         <div class="flex justify-around items-center mb-4">
           <el-checkbox v-model="checked1" label="Remember me" size="large" />
-          <span class="no-underline hover:underline text-secure-color cursor-pointer">Esqueceu a senha?</span>
+          <span class="no-underline hover:underline text-secure-color cursor-pointer"
+            >Esqueceu a senha?</span
+          >
         </div>
 
         <el-form-item>
-          <el-button type="primary" class="w-full py-3" round size="large" @click="submitForm">
+          <el-button
+            type="primary"
+            class="w-full py-3"
+            round
+            size="large"
+            @click="submitForm(loginForm)"
+          >
             Entrar
           </el-button>
         </el-form-item>
@@ -81,11 +95,13 @@
       </div>
     </div>
 
-    <div class="hidden lg:flex flex-col justify-center items-center bg-secure-color text-white px-8 lg:px-20">
+    <div
+      class="hidden lg:flex flex-col justify-center items-center bg-secure-color text-white px-8 lg:px-20"
+    >
       <!-- Div para centralizar o conteúdo no grid -->
       <div class="flex-grow flex flex-col justify-center items-center w-full h-full">
         <!-- Centralizando o carousel -->
-        <el-carousel 
+        <el-carousel
           class="w-full max-w-4xl rounded-lg"
           height="600px"
           :autoplay="false"
@@ -95,7 +111,11 @@
         >
           <el-carousel-item v-for="(image, index) in images" :key="index">
             <div class="flex justify-center items-center w-full h-full">
-              <img :src="image" alt="carousel image" class="object-cover w-full h-full rounded-lg" />
+              <img
+                :src="image"
+                alt="carousel image"
+                class="object-cover w-full h-full rounded-lg"
+              />
             </div>
           </el-carousel-item>
         </el-carousel>
@@ -110,6 +130,7 @@ import { ElDivider, ElForm, ElFormItem } from 'element-plus'
 import bussinesImg from '../assets/img/bussines.svg'
 import evolucaoImg from '../assets/img/evolucao.svg'
 import suporteImg from '../assets/img/suporte.svg'
+import axios from '../plugins/axios'
 
 export default {
   name: 'LoginScreen',
@@ -123,7 +144,11 @@ export default {
     const rules = ref({
       email: [
         { required: true, message: 'O email é obrigatório', trigger: 'blur' },
-        { type: 'email', message: 'Por favor, insira um e-mail válido', trigger: ['blur', 'change'] }
+        {
+          type: 'email',
+          message: 'Por favor, insira um e-mail válido',
+          trigger: ['blur', 'change']
+        }
       ],
       password: [
         { required: true, message: 'A senha é obrigatória', trigger: 'blur' },
@@ -132,12 +157,24 @@ export default {
     })
 
     const checked1 = ref(false) // Para o checkbox "Remember me"
-
     const images = ref([bussinesImg, evolucaoImg, suporteImg])
+    const loginForm = ref(null)
 
-    // validando form
     const submitForm = () => {
-      
+      loginForm.value.validate((valid) => {
+        if (!valid) {
+          return false
+        }
+
+        axios
+          .post('login', form.value)
+          .then((response) => {
+            console.log(response.data)
+          })
+          .catch((error) => {
+            console.error('Erro ao fazer login:', error)
+          })
+      })
     }
 
     return {
@@ -145,7 +182,8 @@ export default {
       rules,
       checked1,
       images,
-      submitForm
+      submitForm,
+      loginForm
     }
   }
 }
@@ -161,7 +199,7 @@ html {
 }
 
 i.fab {
-  font-size: 1.25rem; 
+  font-size: 1.25rem;
 }
 
 .el-carousel__item h3 {

@@ -38,22 +38,42 @@ class UserController extends Controller
 
     public function login(Request $request)
     {
-        $verify_fields = $request->only("email", "senha"); //retorna os valores das chaves passadas como params
-        $user = User::where('email', $verify_fields['email'])->first(); //retornando o primeiro registro encontrando c o email
-        
-        //se for um user valido e a senha for a igual cadastrada na base de dados
-        if(!empty($user) && Hash::check($verify_fields['senha'], $user->senha)){
-            return response()->json(["status" => "success", "user" => "Bem vindo $user->nome."], 200);
+
+        if(empty($request)){
+            return response()->json([
+                'status' => 'erro',
+                'user' => "Erro na"
+            ], 200);
+        }
+        // Validação dos campos de entrada
+        $request->validate([
+            'email' => 'required|email',
+            'password' => 'required|string',
+        ]);
+
+        $verify_fields = $request->only('email', 'password');
+        $user = User::where('email', $verify_fields['email'])->first();
+
+        // Se o usuário é válido e a senha está correta
+        if ($user && Hash::check($verify_fields['password'], $user->senha)) {
+            return response()->json([
+                'status' => 'success',
+                'user' => "Bem-vindo, {$user->nome}."
+            ], 200);
         }
 
-        //  caso a senha nao seja a mesma digitada
-        if(!empty($user) && !Hash::check($verify_fields['senha'], $user->senha)){
-            return response()->json(["status" => "error", "msg" => "Senha incorreta, digite novamente."], 401);
+        // Caso o usuário exista, mas a senha está incorreta
+        if ($user) {
+            return response()->json([
+                'status' => 'error',
+                'msg' => 'Senha incorreta, digite novamente.'
+            ], 401);
         }
 
-        return response()->json(["status" => "error", "msg" => "Usuário não cadastrado no sistema."], 401);
- 
+        // Se o usuário não for encontrado
+        return response()->json([
+            'status' => 'error',
+            'msg' => 'Usuário não cadastrado no sistema.'
+        ], 401);
     }
-
-
 }

@@ -125,8 +125,8 @@
 </template>
 
 <script>
-import { ref } from 'vue'
-import { ElDivider, ElForm, ElFormItem } from 'element-plus'
+import { ref, h } from 'vue'
+import { ElDivider, ElForm, ElFormItem, ElMessage } from 'element-plus'
 import bussinesImg from '../assets/img/bussines.svg'
 import evolucaoImg from '../assets/img/evolucao.svg'
 import suporteImg from '../assets/img/suporte.svg'
@@ -169,13 +169,27 @@ export default {
         axios
           .post('login', form.value)
           .then((response) => {
-            console.log(response.data)
-          })
-          .catch((error) => {
-            console.error('Erro ao fazer login:', error)
+           
+            if (response.data.status === 'error') {
+
+              return ElMessage({
+                showClose: true,
+                message: response.data.msg,
+                grouping: true,
+                type: 'error'
+              })
+            }
+
+            return ElMessage({
+              showClose: true,
+              message: response.data.msg,
+              grouping: true,
+              type: 'success'
+            });
+
           })
       })
-    }
+    };
 
     return {
       form,

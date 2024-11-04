@@ -169,27 +169,35 @@ export default {
         axios
           .post('login', form.value)
           .then((response) => {
-           
-            if (response.data.status === 'error') {
-
-              return ElMessage({
+     
+            return ElMessage({
+              showClose: true,
+              message: response.data.user,
+              grouping: true,
+              type: 'success'
+            })
+          })
+          .catch((error) => {
+          
+            if (error.response && error.response.status === 401) {
+              
+              ElMessage({
                 showClose: true,
-                message: response.data.msg,
+                message: error.response.data.msg,
+                grouping: true,
+                type: 'error'
+              })
+            } else {
+              ElMessage({
+                showClose: true,
+                message: 'Ocorreu um erro. Por favor, tente novamente mais tarde.',
                 grouping: true,
                 type: 'error'
               })
             }
-
-            return ElMessage({
-              showClose: true,
-              message: response.data.msg,
-              grouping: true,
-              type: 'success'
-            });
-
           })
       })
-    };
+    }
 
     return {
       form,

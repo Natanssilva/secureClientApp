@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import LoginScreen from '../views/LoginScreen.vue'
 import RegisterScreen from '../views/RegisterScreen.vue'
+import ForgetPasswordScreen from '../views/ForgetPasswordScreen.vue'
 // Importar outras views conforme necessário
 
 const routes = [
@@ -13,6 +14,11 @@ const routes = [
     path: '/register',
     name: 'Register',
     component: RegisterScreen
+  },
+  {
+    path: '/forget-password',
+    name: 'ForgetPassword',
+    component: ForgetPasswordScreen
   }
 ]
 

@@ -14,9 +14,11 @@
       <h1 class="text-4xl font-bold mb-2">Login</h1>
       <p class="mb-6 text-sm">
         Não possui conta?
-        <span class="no-underline hover:underline text-secure-color cursor-pointer"
-          >Crie agora</span
-        >
+        <router-link to="/register">
+          <span class="no-underline hover:underline text-secure-color cursor-pointer">
+            Crie agora
+          </span>
+        </router-link>
       </p>
 
       <el-form
@@ -48,18 +50,38 @@
 
         <div class="flex justify-around items-center mb-4">
           <el-checkbox v-model="checked1" label="Remember me" size="large" />
-          <span class="no-underline hover:underline text-secure-color cursor-pointer"
-            >Esqueceu a senha?</span
-          >
+          <span
+            @click="openDlgPassword()"
+            class="no-underline hover:underline text-secure-color cursor-pointer"
+            >Esqueceu a senha?
+          </span>
         </div>
 
+        <el-dialog
+          v-model="centerDialogVisible"
+          title="Recuperação de senha"
+          center="true"
+          draggable
+        >
+          <span>
+            Deseja enviar link para recuperação de senha pro email cadastrado?
+          </span>
+          <template #footer>
+            <div class="dialog-footer">
+              <el-button @click="centerDialogVisible = false">Cancelar</el-button>
+              <el-button class="bg-secure-color" @click="forgetPassword()">Confirmar</el-button>
+            </div>
+          </template>
+        </el-dialog>
+
         <el-form-item>
-          <el-button
+          <el-button 
             type="primary"
-            class="w-full py-3"
+            class="bttn-secure w-full py-3"
+            :loading="isLoading"
             round
             size="large"
-            @click="submitForm(loginForm)"
+            @click="submitForm"
           >
             Entrar
           </el-button>
@@ -159,18 +181,21 @@ export default {
     const checked1 = ref(false) // Para o checkbox "Remember me"
     const images = ref([bussinesImg, evolucaoImg, suporteImg])
     const loginForm = ref(null)
+    const isLoading = ref(false) // Estado do loading
+    const centerDialogVisible = ref(false) // Define a variável reativa para controlar a visibilidade do diálogo
 
     const submitForm = () => {
+      isLoading.value = true // Ativa o loading
       loginForm.value.validate((valid) => {
         if (!valid) {
+          isLoading.value = false // Desativa o loading se o formulário for inválido
           return false
         }
 
         axios
           .post('login', form.value)
           .then((response) => {
-     
-            return ElMessage({
+            ElMessage({
               showClose: true,
               message: response.data.user,
               grouping: true,
@@ -178,9 +203,7 @@ export default {
             })
           })
           .catch((error) => {
-          
             if (error.response && error.response.status === 401) {
-              
               ElMessage({
                 showClose: true,
                 message: error.response.data.msg,
@@ -196,7 +219,42 @@ export default {
               })
             }
           })
+          .finally(() => {
+            isLoading.value = false // Desativa o loading após a resposta
+          })
       })
+    }
+    const openDlgPassword = () => {
+      loginForm.value.validateField('email', (valid) => {
+        if (!valid) {
+          return false;
+        }
+        centerDialogVisible.value = true // Abre o diálogo se o e-mail for válido
+      })
+    }
+
+    const forgetPassword = () => {
+
+        axios
+          .post('password/forgot',  { email: form.value.email })
+          .then((response) => {
+            
+            ElMessage({
+              showClose: true,
+              message: response.data.message,
+              grouping: true,
+              type: 'success'
+            })
+          })
+          .catch((error) => {
+           
+              ElMessage({
+                showClose: true,
+                message: 'Ocorreu um erro. Por favor, tente novamente mais tarde.',
+                grouping: true,
+                type: 'error'
+              })
+          })
     }
 
     return {
@@ -205,7 +263,11 @@ export default {
       checked1,
       images,
       submitForm,
-      loginForm
+      isLoading,
+      loginForm,
+      forgetPassword,
+      centerDialogVisible,
+      openDlgPassword
     }
   }
 }
@@ -236,5 +298,9 @@ i.fab {
 
 .el-carousel__item:nth-child(2n + 1) {
   background-color: #d3dce6;
+}
+.bttn-secure{
+  background-color: #7447e1 !important;
+  border-color: #7447e1 !important;
 }
 </style>

@@ -43,7 +43,7 @@ class RecoverPassword extends Controller
         );
 
         $nom_usuario = trim("{$user->nome} {$user->sobrenome}");
-        $link = url('/reset-password/' . $token_password);
+        $link = url('http://localhost:5173/reset-password/' . $token_password);
         $horario = date('H');
 
         $saudacao = match (true) {

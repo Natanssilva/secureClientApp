@@ -21,5 +21,11 @@ export default defineConfig({
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))
     }
+  },
+  server: {
+    hmr: true, 
+    watch: {
+      usePolling: true, // Isso força o Vite a monitorar alterações, útil em alguns ambientes
+    },
   }
 })

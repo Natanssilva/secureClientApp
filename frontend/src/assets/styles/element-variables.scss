@@ -1,0 +1,25 @@
+// @use 'element-plus/theme-chalk/src/index' as *;
+
+// $primary-color: #7447e1; // Variável Sass
+
+// :root {
+//   --el-color-primary: $primary-color; // Aplicando a variável Sass à variável CSS do Element Plus
+// }
+
+// // Personalizando os botões
+// .el-button {
+//   &--primary {
+//     background-color: var($primary-color); // Usando a variável CSS
+//     border-color: var($primary-color);
+    
+//     &:hover {
+//       background-color: lighten(var($primary-color), 10%); // Cor de fundo ao passar o mouse
+//       border-color: lighten(var($primary-color), 10%);
+//     }
+    
+//     &:active {
+//       background-color: darken(var($primary-color), 10%); // Cor de fundo ao clicar
+//       border-color: darken(var($primary-color), 10%);
+//     }
+//   }
+// }

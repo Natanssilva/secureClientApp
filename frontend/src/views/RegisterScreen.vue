@@ -13,9 +13,11 @@
       <h1 class="text-4xl font-bold mb-2">Cadastro</h1>
       <p class="mb-6 text-sm">
         Já possui conta?
-        <span class="no-underline hover:underline text-secure-color cursor-pointer">
-          Entre agora
-        </span>
+        <router-link to="/login">
+          <span class="no-underline hover:underline text-secure-color cursor-pointer">
+            Entre agora
+          </span>
+        </router-link>
       </p>
 
       <el-form

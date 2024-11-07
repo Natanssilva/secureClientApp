@@ -12,7 +12,7 @@
 
     </head>
     <body class="antialiased">
-    <h1>{{ $saudacao }} {{ $nom_usuario }},</h1> 
+    <h1>{{ $saudacao }}, {{ $nom_usuario }}.</h1> 
     <p>Segue abaixo o link para redefinir a senha:</p>
     <a href="{{ $link }}"> {{ $link }}</a>
     <br>

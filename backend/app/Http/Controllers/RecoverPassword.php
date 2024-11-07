@@ -28,7 +28,7 @@ class RecoverPassword extends Controller
         $user = User::where("email", $request->email)->first(); //procurar usuario com email que ta tentando redefinir senhas
 
         if (empty($user)) {  //usuario não encontrado no databasae
-            return response()->json(["status" => "error", "message" => "Usuário não encontrado na base de dados."], 404);
+            return response()->json(["status" => "error", "message" => "Nenhum usuário cadastrado com o email digitado no sistema."], 401);
         }
 
         $token_password = Str::random(60); // Gera um token de 60 caracteres

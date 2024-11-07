@@ -49,7 +49,7 @@
         </el-form-item>
 
         <div class="flex justify-around items-center mb-4">
-          <el-checkbox v-model="checked1" label="Remember me" size="large" />
+          <el-checkbox v-model="checked1" label="Manter Conectado" size="large" />
           <span
             @click="openDlgPassword()"
             class="no-underline hover:underline text-secure-color cursor-pointer"
@@ -246,6 +246,14 @@ export default {
           })
         })
         .catch((error) => {
+          if(error.status == 402){
+            return  ElMessage({
+                showClose: true,
+                message: error.response.data.message,
+                grouping: true,
+                type: 'error'
+              });
+          }
           ElMessage({
             showClose: true,
             message: 'Ocorreu um erro. Por favor, tente novamente mais tarde.',

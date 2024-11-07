@@ -58,24 +58,23 @@
         </div>
 
         <el-dialog
+          class="w-full sm:w-full md:w-3/4 lg:w-1/2 xl:w-1/3 mx-auto"
           v-model="centerDialogVisible"
           title="Recuperação de senha"
           center="true"
           draggable
         >
-          <span>
-            Deseja enviar link para recuperação de senha pro email cadastrado?
-          </span>
+          <span class="block text-center"> Deseja enviar link para recuperação de senha pro email cadastrado? </span>
           <template #footer>
-            <div class="dialog-footer">
-              <el-button @click="centerDialogVisible = false">Cancelar</el-button>
-              <el-button class="bg-secure-color" @click="forgetPassword()">Confirmar</el-button>
+            <div class="">
+              <el-button type="primary" class="bttn-secure" @click="centerDialogVisible = false">Cancelar</el-button>
+              <el-button type="primary" class="bttn-secure" @click="forgetPassword()">Confirmar</el-button>
             </div>
           </template>
         </el-dialog>
 
         <el-form-item>
-          <el-button 
+          <el-button
             type="primary"
             class="bttn-secure w-full py-3"
             :loading="isLoading"
@@ -94,7 +93,8 @@
         <!-- Botão Google -->
         <div>
           <el-button
-            class="w-full py-3 flex items-center justify-center mb-3 text-center"
+            class="bttn-secure w-full py-3 flex items-center justify-center mb-3 text-center"
+            type="primary"
             round
             size="large"
           >
@@ -106,7 +106,8 @@
         <!-- Botão Facebook -->
         <div>
           <el-button
-            class="w-full py-3 flex items-center justify-center mb-3 text-center"
+            class="bttn-secure w-full py-3 flex items-center justify-center mb-3 text-center"
+            type="primary"
             round
             size="large"
           >
@@ -227,34 +228,31 @@ export default {
     const openDlgPassword = () => {
       loginForm.value.validateField('email', (valid) => {
         if (!valid) {
-          return false;
+          return false
         }
         centerDialogVisible.value = true // Abre o diálogo se o e-mail for válido
       })
     }
 
     const forgetPassword = () => {
-
-        axios
-          .post('password/forgot',  { email: form.value.email })
-          .then((response) => {
-            
-            ElMessage({
-              showClose: true,
-              message: response.data.message,
-              grouping: true,
-              type: 'success'
-            })
+      axios
+        .post('password/forgot', { email: form.value.email })
+        .then((response) => {
+          ElMessage({
+            showClose: true,
+            message: response.data.message,
+            grouping: true,
+            type: 'success'
           })
-          .catch((error) => {
-           
-              ElMessage({
-                showClose: true,
-                message: 'Ocorreu um erro. Por favor, tente novamente mais tarde.',
-                grouping: true,
-                type: 'error'
-              })
+        })
+        .catch((error) => {
+          ElMessage({
+            showClose: true,
+            message: 'Ocorreu um erro. Por favor, tente novamente mais tarde.',
+            grouping: true,
+            type: 'error'
           })
+        })
     }
 
     return {
@@ -299,8 +297,5 @@ i.fab {
 .el-carousel__item:nth-child(2n + 1) {
   background-color: #d3dce6;
 }
-.bttn-secure{
-  background-color: #7447e1 !important;
-  border-color: #7447e1 !important;
-}
+
 </style>

@@ -1,25 +1,18 @@
-// @use 'element-plus/theme-chalk/src/index' as *;
+//Definindo classe padrão de botão
 
-// $primary-color: #7447e1; // Variável Sass
+$secure-color: #7447e1;
+$secure-hover-color: #5d36b3;
+$secure-text-hover-color: #eae7ff;
 
-// :root {
-//   --el-color-primary: $primary-color; // Aplicando a variável Sass à variável CSS do Element Plus
-// }
-
-// // Personalizando os botões
-// .el-button {
-//   &--primary {
-//     background-color: var($primary-color); // Usando a variável CSS
-//     border-color: var($primary-color);
-    
-//     &:hover {
-//       background-color: lighten(var($primary-color), 10%); // Cor de fundo ao passar o mouse
-//       border-color: lighten(var($primary-color), 10%);
-//     }
-    
-//     &:active {
-//       background-color: darken(var($primary-color), 10%); // Cor de fundo ao clicar
-//       border-color: darken(var($primary-color), 10%);
-//     }
-//   }
-// }
+.bttn-secure {
+    background-color: $secure-color !important;
+    border-color: $secure-color !important;
+    color: #fff;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+  
+    &:hover {
+      background-color: $secure-hover-color !important;
+      border-color: $secure-hover-color !important;
+      color: $secure-text-hover-color !important;
+    }
+  }

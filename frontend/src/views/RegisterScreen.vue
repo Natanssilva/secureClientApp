@@ -66,7 +66,7 @@
         </el-form-item>
 
         <el-form-item>
-          <el-button type="primary" class="w-full py-3" round size="large" @click="submitForm">
+          <el-button type="primary" class="bttn-secure w-full py-3" round size="large" @click="submitForm">
             Criar conta
           </el-button>
         </el-form-item>
@@ -173,4 +173,6 @@ html {
 .el-carousel__item:nth-child(2n + 1) {
   background-color: #d3dce6;
 }
+
+
 </style>

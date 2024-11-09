@@ -23,9 +23,11 @@ export default defineConfig({
     }
   },
   server: {
+    host: '0.0.0.0', // Permite acesso externo (app mobile)
+    port: 5173, // Porta da aplicação
     hmr: true, 
     watch: {
       usePolling: true, // Isso força o Vite a monitorar alterações, útil em alguns ambientes
     },
-  }
+  },
 })

@@ -112,15 +112,31 @@ class RecoverPassword extends Controller
         return response()->json([
             'status' => 'success',
             'message' => 'Token válido. Redirecionando para a página de redefinição de senha.',
-            'redirect_url' => url('/reset-password-page') 
+            'redirect_url' => url('/reset-password-page')
         ], 200);
     }
 
-    public function resetPassword(Request $request){
-        $this->validateToken($request);
-
+    public function resetPassword(Request $request)
+    {
+        $isValid = $this->validateToken($request);
         /**
-         * Criar Refinição de senha no banco de dados
+         * Redefinição de senha do usuário
          */
+
+        if ($isValid) {
+            User::where('email', $request->email)
+            ->update(['senha' => Hash::make($request->password)]);
+
+              return response()->json([
+                'status' => 'success',
+                'msg' => 'Senha redefinida com sucesso. Favor realizar login novamente.'
+            ], 200);
+        }
+
+        return response()->json([
+            'status' => 'error',
+            'msg' => 'Erro na redefinição de senha. Favor contatar suporte tecnico.'
+        ], 401);
+
     }
 }

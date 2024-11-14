@@ -125,9 +125,9 @@ class RecoverPassword extends Controller
 
         if ($isValid) {
             User::where('email', $request->email)
-            ->update(['senha' => Hash::make($request->password)]);
+                ->update(['senha' => Hash::make($request->password)]);
 
-              return response()->json([
+            return response()->json([
                 'status' => 'success',
                 'msg' => 'Senha redefinida com sucesso. Favor realizar login novamente.'
             ], 200);

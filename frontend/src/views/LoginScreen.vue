@@ -58,17 +58,25 @@
         </div>
 
         <el-dialog
-          class="w-full sm:w-full md:w-3/4 lg:w-1/2 xl:w-1/3 mx-auto"
+          class="w-full sm:w-11/12 md:w-3/4 lg:w-1/2 xl:w-1/3 mx-auto"
+          :style="{ minWidth: '300px' }"
           v-model="centerDialogVisible"
           title="Recuperação de senha"
-          center="true"
+          center
           draggable
         >
-          <span class="block text-center"> Deseja enviar link para recuperação de senha pro email cadastrado? </span>
+          <div class="text-center mb-4">
+            Deseja enviar link para recuperação de senha pro email cadastrado?
+          </div>
+
           <template #footer>
-            <div class="">
-              <el-button type="primary" class="bttn-secure" @click="centerDialogVisible = false">Cancelar</el-button>
-              <el-button type="primary" class="bttn-secure" @click="forgetPassword()">Confirmar</el-button>
+            <div class="flex justify-center space-x-4">
+              <el-button type="primary" class="bttn-secure" @click="centerDialogVisible = false"
+                >Cancelar</el-button
+              >
+              <el-button type="primary" class="bttn-secure" @click="forgetPassword()"
+                >Confirmar</el-button
+              >
             </div>
           </template>
         </el-dialog>
@@ -246,13 +254,13 @@ export default {
           })
         })
         .catch((error) => {
-          if(error.status == 402){
-            return  ElMessage({
-                showClose: true,
-                message: error.response.data.message,
-                grouping: true,
-                type: 'error'
-              });
+          if (error.status == 402) {
+            return ElMessage({
+              showClose: true,
+              message: error.response.data.message,
+              grouping: true,
+              type: 'error'
+            })
           }
           ElMessage({
             showClose: true,
@@ -305,5 +313,4 @@ i.fab {
 .el-carousel__item:nth-child(2n + 1) {
   background-color: #d3dce6;
 }
-
 </style>
